@@ -21,9 +21,9 @@ Optional: Xcode Command Line Tools (for codesign / general build tooling).
 
 ## A. Using a packaged Anvil.app
 
-### 1. Obtain Anvil.app
+There is currently **no official prebuilt binary download**. You build `Anvil.app` locally:
 
-Either download a release artifact when published, or build locally:
+### 1. Build Anvil.app
 
 ```bash
 git clone https://github.com/pranee54/Anvil.git

@@ -4,7 +4,7 @@
 
 - Command: **Anvil: Open Chat**
 - macOS: `Cmd+L`
-- Windows/Linux host: `Ctrl+L`
+- Windows host: `Ctrl+L`
 - Activity Bar: **Anvil** icon
 
 **Anvil: New Chat** — `Cmd+Shift+L` / `Ctrl+Shift+L`
@@ -60,10 +60,10 @@ How is auth structured? @codebase
 
 | Setting | Purpose |
 |---------|---------|
-| `anvil.provider` | `ollama` (default) or cloud: `openai-compatible`, `anthropic`, `gemini` |
+| `anvil.provider` | **`ollama`** (recommended) or **`openai-compatible`**. `anthropic` / `gemini` appear in settings but are **not enabled** in this release |
 | `anvil.baseUrl` | Default `http://127.0.0.1:11434` for Ollama |
 | `anvil.model` | Model id (e.g. `qwen2.5-coder:3b`) |
-| `anvil.apiKey` | Cloud only — never required for Ollama |
+| `anvil.apiKey` | For OpenAI-compatible endpoints when required — never needed for Ollama |
 
 Commands:
 
@@ -89,4 +89,6 @@ Commands:
 
 ## Streaming
 
-Responses stream into Anvil Chat. Use **Stop** / Abort to cancel.
+With **Ollama**, responses stream into Anvil Chat. Use **Stop** / Abort to cancel.
+
+**OpenAI-compatible** providers return a full completion (streaming is not implemented for that path).

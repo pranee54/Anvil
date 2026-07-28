@@ -122,10 +122,12 @@ ollama pull deepseek-coder-v2
 
 ## In Anvil
 
-1. Provider: **ollama**
+1. Provider: **ollama** (recommended). OpenAI-compatible works without streaming. Anthropic/Gemini are not enabled yet.
 2. Base URL: `http://127.0.0.1:11434`
 3. Select / refresh models
 4. **Anvil: Test Ollama Connection**
+
+Ollama responses stream in Anvil Chat.
 
 | Symptom | Likely cause |
 |---------|----------------|

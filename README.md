@@ -1,43 +1,125 @@
 # Anvil
 
-A local-first AI coding IDE built on the Code-OSS / VSCodium ecosystem.
+[![CI](https://github.com/pranee54/Anvil/actions/workflows/ci.yml/badge.svg)](https://github.com/pranee54/Anvil/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.2.0-informational.svg)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](docs/INSTALL-MACOS.md)
+[![Status](https://img.shields.io/badge/status-developer%20preview-orange.svg)](CHANGELOG.md)
 
-Anvil combines a full desktop editor with **Anvil Agent** — a repository-aware coding assistant that can investigate projects, edit files, run tools, and work with local AI models through Ollama. Optional cloud providers are available when configured.
+A local-first AI coding IDE built on the Code-OSS / VSCodium ecosystem with **Anvil Agent**.
 
-> **Status:** Developer preview **v0.2.0**. Usable for local AI-assisted coding on macOS. Windows standalone packaging is not yet implemented or verified.
+Primary AI path: **Ollama** + local coding models (models are installed separately; Anvil does not bundle them).
 
-Repository: [https://github.com/pranee54/Anvil](https://github.com/pranee54/Anvil)
+> **Developer preview (v0.2.0)** — usable for local AI-assisted coding. There is currently **no official prebuilt binary download**.
+
+| Platform | What works today |
+|----------|------------------|
+| **macOS** | Desktop packaging via `npm run anvil:package:mac` (build from source). Builds are **ad-hoc / unsigned** — Gatekeeper may require **right-click → Open**. |
+| **Windows** | Development only: build packages + run Anvil Agent in an Extension Development Host. **No standalone Windows app** yet. |
+| **Linux** | Not verified — planned. |
+
+## Screenshots
+
+### Anvil IDE
+
+Full coding workspace with the Anvil assistant.
+
+![Anvil IDE](docs/images/anvil-ide.png)
+
+### Ask Mode
+
+Repository-aware answers grounded in project files.
+
+![Anvil Ask Mode](docs/images/anvil-chat.png)
+
+### Agent Mode
+
+Anvil investigates the codebase and traces implementation across files.
+
+![Anvil Agent Mode](docs/images/anvil-agent-tools.png)
+
+### Local AI
+
+Select and run local Ollama coding models such as `qwen2.5-coder:3b`.
+
+![Anvil Local AI model picker](docs/images/anvil-model-picker.png)
+
+## Quick Start
+
+### macOS (desktop app, build from source)
+
+```bash
+git clone https://github.com/pranee54/Anvil.git
+cd Anvil
+npm install
+```
+
+Install [Ollama](https://ollama.com), then:
+
+```bash
+ollama pull qwen2.5-coder:3b
+ollama list
+```
+
+Package and launch Anvil:
+
+```bash
+npm run anvil:package:mac
+open dist/Anvil.app
+```
+
+If macOS blocks the app: Finder → right-click `Anvil.app` → **Open**. Details: [docs/INSTALL-MACOS.md](docs/INSTALL-MACOS.md).
+
+Then:
+
+1. **File → Open Folder…** and select [`demo-project/`](demo-project/)
+2. Status bar → select **Ollama** / `qwen2.5-coder:3b` (or **Anvil: Select Model**)
+3. **Anvil: Test Ollama Connection**
+4. Open **Anvil Chat** (`Cmd+L`)
+5. Ask: `Explain this codebase.`
+
+### Windows (development only)
+
+There is no packaged Windows application yet. Build the agent packages and run them in an Extension Development Host — see [docs/INSTALL-WINDOWS.md](docs/INSTALL-WINDOWS.md).
 
 ## What is Anvil?
 
 - Code-OSS-class desktop IDE (editor, terminal, Git, search, Open VSX extensions)
-- Integrated **Anvil Agent** and **Anvil Chat**
-- Local-first AI via Ollama (models installed separately)
+- Built-in **Anvil Agent** and **Anvil Chat**
+- Local-first AI via Ollama
 - Repository investigation (search, read, project structure)
 - **Ask**, **Edit**, and **Agent** modes
-- `@` context attachments (`@file`, `@selection`, `@folder`, `@codebase`, `@problems`, `@git`)
-- File editing with native diff review
-- Terminal / tool execution with permission policy
+- `@` context: `@file` `@selection` `@folder` `@codebase` `@problems` `@git`
+- File edits with native diff review
+- Terminal / tool execution with a permission policy
 - Task checkpoints and revert
-- Streaming responses and stop generation
+- Streaming responses when using **Ollama**
 
-## Platform support
+## Features
 
-| Platform | Development | Packaged app | Status |
-|----------|-------------|--------------|--------|
-| macOS (Apple Silicon / Intel) | Supported + tested | `Anvil.app` via `npm run anvil:package:mac` | Supported + tested |
-| Windows | Supported (Node builds / Extension Development Host) | Not implemented in this release | Development only |
-| Linux | Package builds likely; not verified | Not packaged | Planned |
-
-## Features (implemented)
+Verified in this release:
 
 - Ask / Edit / Agent workflows
-- Ollama local models; optional `openai-compatible`, `anthropic`, `gemini`
-- Context investigation and grounding from repository files
-- Diff review (Accept / Reject) and task checkpoints / revert
+- **Ollama** (local, streaming)
+- **OpenAI-compatible** HTTP providers (implemented; responses are **not** streamed)
+- Repository investigation and answer grounding from project files
+- Diff review (Accept / Reject) and checkpoints / revert
 - Diagnostics-aware commands (e.g. Fix Problems)
 - Conversation sessions
-- macOS packaged application (`dist/Anvil.app`)
+- macOS packaged application (`dist/Anvil.app` after local build)
+
+Not enabled yet (scaffolded for future work only):
+
+- Anthropic provider
+- Gemini provider
+
+## Local AI
+
+Anvil does **not** ship Ollama or model weights.
+
+1. Install Ollama ([guide](docs/LOCAL-AI.md))
+2. Pull a coding model, e.g. `ollama pull qwen2.5-coder:3b` or `qwen2.5-coder:7b`
+3. Connect Anvil to `http://127.0.0.1:11434`
 
 ## Modes
 
@@ -47,56 +129,31 @@ Repository: [https://github.com/pranee54/Anvil](https://github.com/pranee54/Anvi
 | **Edit** | Focused code changes with review |
 | **Agent** | Multi-step tasks using repository tools (files, search, terminal, git, …) |
 
-Risky operations follow `anvil.permissionMode`: `strict`, `ask` (default), or `permissive`. Details: [docs/USAGE.md](docs/USAGE.md).
+Risky operations follow `anvil.permissionMode`: `strict`, `ask` (default), or `permissive`. See [docs/USAGE.md](docs/USAGE.md).
 
-## Local AI
+## Platform Support
 
-Anvil does **not** bundle Ollama or model weights. Install Ollama, pull a model, then connect Anvil to:
-
-```text
-http://127.0.0.1:11434
-```
-
-Examples:
-
-```bash
-ollama pull qwen2.5-coder:3b   # lightweight
-ollama pull qwen2.5-coder:7b   # recommended balanced option
-```
-
-Full guide: [docs/LOCAL-AI.md](docs/LOCAL-AI.md).
-
-## Quick start
-
-1. Install Anvil — [macOS](docs/INSTALL-MACOS.md) · [Windows](docs/INSTALL-WINDOWS.md)
-2. Install [Ollama](docs/LOCAL-AI.md) and pull a coding model
-3. Open Anvil and open a project folder
-4. Select Ollama / your model (status bar: `Anvil: LOCAL · …`)
-5. Run **Anvil: Test Ollama Connection**
-6. Open **Anvil Chat** (`Cmd+L` / `Ctrl+L`) and ask a repository question
-
-```text
-Explain this codebase.
-Where is authentication implemented?
-Find the code responsible for API requests.
-Explain this file.
-Fix the current diagnostics.
-Inspect this project and tell me how it is structured.
-```
+| Platform | Development | Packaged app | Status |
+|----------|-------------|--------------|--------|
+| macOS | Supported | Build from source (`anvil:package:mac`) | Supported + tested |
+| Windows | Supported (Extension Development Host) | Not available | Development only |
+| Linux | Untested | Not available | Planned |
 
 ## Installation
 
-- **[macOS](docs/INSTALL-MACOS.md)** — build `Anvil.app` from source; Gatekeeper notes for unsigned builds
-- **[Windows](docs/INSTALL-WINDOWS.md)** — development setup via Extension Development Host (no verified Windows package yet)
+- **[macOS](docs/INSTALL-MACOS.md)** — build `Anvil.app`; Gatekeeper for unsigned builds
+- **[Windows](docs/INSTALL-WINDOWS.md)** — development / Extension Development Host only
 - **[Local AI](docs/LOCAL-AI.md)** — Ollama + model tiers
 
-```bash
-git clone https://github.com/pranee54/Anvil.git
-cd Anvil
-npm install
-npm run anvil:package:mac   # macOS only
-open dist/Anvil.app
-```
+## Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [USAGE](docs/USAGE.md) | Modes, @ context, settings |
+| [LOCAL-AI](docs/LOCAL-AI.md) | Ollama setup |
+| [TROUBLESHOOTING](docs/TROUBLESHOOTING.md) | Common failures |
+| [DEVELOPMENT](docs/DEVELOPMENT.md) | Contributor workflow |
+| [ARCHITECTURE](docs/ARCHITECTURE.md) | System design |
 
 ## Architecture
 
@@ -105,29 +162,19 @@ Anvil Desktop
       │
       ├── Code-OSS IDE (VSCodium base + Anvil product overlay)
       │
-      └── Anvil Agent Extension
-                 │
-                 ▼
-             agent-core
-        ┌────────┼─────────┐
-        ▼        ▼         ▼
-     Context    Tools     Models
-        │        │         │
-        ▼        ▼         ▼
-      Repo    Terminal    Ollama
-              Files       Cloud*
-              Git
+      └── Anvil Agent Extension → agent-core
+                                    ├── Context (repo)
+                                    ├── Tools (files, terminal, git)
+                                    └── Models (Ollama; OpenAI-compatible optional)
 ```
-
-\*Cloud providers are optional; Ollama is the default local path.
 
 | Path | Role |
 |------|------|
-| `packages/agent-core` | Orchestrator, tools, context, permissions, model gateway |
+| `packages/agent-core` | Orchestrator, tools, context, permissions, models |
 | `packages/anvil-extension` | Anvil Chat UI, commands, diffs, checkpoints |
-| `ide/` | Product branding + macOS packaging |
+| `ide/` | Branding + macOS packaging |
+| `demo-project/` | Safe sample workspace for trying Anvil |
 | `apps/legacy-electron/` | Archived prototype — not the product path |
-| `tests/` | Vitest suite |
 
 Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
@@ -144,18 +191,6 @@ npm test
 
 See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Documentation
-
-| Guide | Description |
-|-------|-------------|
-| [INSTALL-MACOS](docs/INSTALL-MACOS.md) | macOS install & Gatekeeper |
-| [INSTALL-WINDOWS](docs/INSTALL-WINDOWS.md) | Windows development setup |
-| [LOCAL-AI](docs/LOCAL-AI.md) | Ollama + models |
-| [USAGE](docs/USAGE.md) | Modes, @ context, settings |
-| [TROUBLESHOOTING](docs/TROUBLESHOOTING.md) | Common failures |
-| [DEVELOPMENT](docs/DEVELOPMENT.md) | Contributor workflow |
-| [ARCHITECTURE](docs/ARCHITECTURE.md) | System design |
-
 ## Security
 
 Report vulnerabilities via [SECURITY.md](SECURITY.md). Do not paste API keys or secrets into issues.
@@ -168,4 +203,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Keep Anvil-specific logic in `packages/a
 
 Anvil-owned code: [MIT](LICENSE).
 
-Packaged desktop builds redistribute a Code-OSS / VSCodium-derived IDE. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Anvil branding does not imply ownership of upstream IDE components.
+Packaged desktop builds redistribute a Code-OSS / VSCodium-derived IDE. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

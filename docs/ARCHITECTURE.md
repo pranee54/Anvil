@@ -16,9 +16,9 @@ Anvil Desktop
      Context    Tools     Models
         │        │         │
         ▼        ▼         ▼
-      Repo    Terminal    Ollama (default)
-              Files       Cloud providers (optional)
-              Git
+      Repo    Terminal    Ollama (default, streaming)
+              Files       OpenAI-compatible (optional; no streaming yet)
+              Git         Anthropic / Gemini (scaffold only — not enabled)
 ```
 
 ## Why separate from upstream Code-OSS?
@@ -41,7 +41,7 @@ Reusable TypeScript library:
 - Tool runtime (read/search/edit/terminal/git/…)
 - Context / repository map / investigation
 - Permissions policy
-- Model gateway (Ollama + HTTP cloud providers)
+- Model gateway (Ollama; OpenAI-compatible HTTP; Anthropic/Gemini scaffolds not enabled)
 
 ### `packages/anvil-extension`
 

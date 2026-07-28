@@ -178,14 +178,20 @@
         "anvil.provider": {
           "type": "string",
           "enum": ["ollama", "openai-compatible", "anthropic", "gemini"],
+          "enumDescriptions": [
+            "Local Ollama (recommended). Streaming supported.",
+            "OpenAI-compatible HTTP API. Implemented; responses are not streamed.",
+            "Not enabled in this release (scaffold only).",
+            "Not enabled in this release (scaffold only)."
+          ],
           "default": "ollama",
-          "markdownDescription": "AI provider. **Ollama** stays fully local.",
+          "markdownDescription": "AI provider. Use **ollama** (local, recommended) or **openai-compatible**. **anthropic** and **gemini** appear in settings for future work but are **not enabled** yet.",
           "order": 1
         },
         "anvil.baseUrl": {
           "type": "string",
           "default": "http://127.0.0.1:11434",
-          "markdownDescription": "Ollama / OpenAI-compatible base URL.",
+          "markdownDescription": "Base URL for Ollama (default `http://127.0.0.1:11434`) or an OpenAI-compatible endpoint.",
           "order": 2
         },
         "anvil.model": {
@@ -197,7 +203,7 @@
         "anvil.apiKey": {
           "type": "string",
           "default": "",
-          "markdownDescription": "API key for cloud providers only. Never required for Ollama.",
+          "markdownDescription": "API key for OpenAI-compatible endpoints when required. Never needed for Ollama.",
           "order": 4
         },
         "anvil.maxIterations": {

@@ -26,11 +26,12 @@ Enable GitHub private vulnerability reporting when the repository settings allow
 Local Ollama inference keeps prompts on the machine by default for that provider path. This is not a complete threat model:
 
 - Other extensions, malware, or misconfiguration can still exfiltrate data
-- Cloud providers (`openai-compatible`, `anthropic`, `gemini`) send prompts/code you attach to those services when selected
+- **OpenAI-compatible** endpoints send prompts/code you attach when that provider is selected
+- Anthropic and Gemini are **not enabled** in this release; do not rely on them for inference
 - Never commit `.env` files or paste keys into chat logs you share
 
 ## API keys
 
 - Ollama does not require an API key
-- Cloud API keys are stored in editor settings — treat them like passwords
+- API keys for OpenAI-compatible endpoints are stored in editor settings — treat them like passwords
 - Rotate keys if they appear in logs or screenshots

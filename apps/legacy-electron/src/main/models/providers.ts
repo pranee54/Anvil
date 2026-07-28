@@ -94,10 +94,16 @@ export class AnthropicProvider implements ModelProvider {
     status: 'disconnected'
     message: string
   }> {
-    return { ok: false, status: 'disconnected', message: 'Anthropic provider scaffolded; configure API to enable.' }
+    return {
+      ok: false,
+      status: 'disconnected',
+      message: 'Anthropic is not enabled in this release. Use Ollama or an OpenAI-compatible endpoint.'
+    }
   }
   async chat(): Promise<ChatCompletionResult> {
-    throw new Error('Anthropic provider not fully enabled in this MVP. Use Ollama or OpenAI-compatible.')
+    throw new Error(
+      'Anthropic is not enabled in this release. Use Ollama or an OpenAI-compatible endpoint.'
+    )
   }
 }
 
@@ -108,9 +114,15 @@ export class GeminiProvider implements ModelProvider {
     status: 'disconnected'
     message: string
   }> {
-    return { ok: false, status: 'disconnected', message: 'Gemini provider scaffolded; configure API to enable.' }
+    return {
+      ok: false,
+      status: 'disconnected',
+      message: 'Gemini is not enabled in this release. Use Ollama or an OpenAI-compatible endpoint.'
+    }
   }
   async chat(): Promise<ChatCompletionResult> {
-    throw new Error('Gemini provider not fully enabled in this MVP. Use Ollama or OpenAI-compatible.')
+    throw new Error(
+      'Gemini is not enabled in this release. Use Ollama or an OpenAI-compatible endpoint.'
+    )
   }
 }

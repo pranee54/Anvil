@@ -162,9 +162,9 @@ export function SettingsModal(): JSX.Element | null {
               }
             >
               <option value="ollama">Ollama (local)</option>
-              <option value="openai-compatible">OpenAI-compatible</option>
-              <option value="anthropic">Anthropic (scaffold)</option>
-              <option value="gemini">Gemini (scaffold)</option>
+              <option value="openai-compatible">OpenAI-compatible (no streaming)</option>
+              <option value="anthropic">Anthropic (not enabled)</option>
+              <option value="gemini">Gemini (not enabled)</option>
             </select>
           </Field>
 
