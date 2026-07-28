@@ -1,19 +1,30 @@
-# Public screenshots
+# Public screenshots & visual assets
 
-Product images used in the root README **Screenshots** section.
+## Current README gallery (shipped)
 
-## Files
+Product images and brand assets used in the root README.
 
-| File | Caption |
-|------|---------|
-| `anvil-ide.png` | Anvil IDE — full coding workspace with the Anvil assistant |
-| `anvil-chat.png` | Ask Mode — repository-aware answers grounded in project files |
-| `anvil-agent-tools.png` | Agent Mode — investigates the codebase and traces implementation |
-| `anvil-model-picker.png` | Local AI — Ollama model selection (e.g. `qwen2.5-coder:3b`) |
+| File | Role |
+|------|------|
+| `anvil-banner.png` | Brand banner (above hero screenshot) |
+| `anvil-ide.png` | Hero — Anvil IDE workspace (real) |
+| `anvil-chat.png` | Ask Mode showcase (real) |
+| `anvil-agent-tools.png` | Agent investigation showcase (real) |
+| `anvil-model-picker.png` | Local AI / Ollama picker (real) |
+| `anvil-investigation.png` | Conceptual investigation flow |
 
-These four images are the complete public showcase. Do not add a diff/review screenshot to the README gallery.
+### Branding / docs (not embedded in README)
 
-## Capture notes (re-shoot if needed)
+| File | Role |
+|------|------|
+| `anvil-social-preview.png` | GitHub social preview — upload in repo Settings → Social preview (`1280×640`) |
+| `anvil-mark.png` | Geometric Anvil mark (Activity Bar / icon / branding) |
+| `anvil-local-ai.png` | Conceptual local AI path — kept for docs; not in README |
+
+Do **not** add a diff/review screenshot to the public gallery.
+Do **not** replace real product screenshots with generated UI mockups.
+
+### Capture notes (re-shoot if needed)
 
 Use [`demo-project/`](../../demo-project/) as the open folder.
 
@@ -25,3 +36,17 @@ Use [`demo-project/`](../../demo-project/) as the open folder.
 ### Privacy
 
 Do not show `/Users/…`, XAMPP paths, emails, tokens, API keys, machine names, or unrelated apps in new captures.
+
+---
+
+## Generated brand asset specs
+
+| File | Size | Notes |
+|------|------|--------|
+| `anvil-mark.png` | 1024×1024 | Flat geometric anvil + repository node |
+| `anvil-social-preview.png` | 1280×640 | GitHub OG / social only |
+| `anvil-banner.png` | 1920×720 | Quiet README brand header |
+| `anvil-investigation.png` | 1600×900 | Question → … → Answer |
+| `anvil-local-ai.png` | 1600×900 | Machine → Anvil → Ollama |
+
+Tagline (do not invent alternatives): **Local AI coding that understands your codebase.**
