@@ -1,0 +1,32 @@
+{
+  "name": "@anvil/agent-core",
+  "version": "0.2.0",
+  "description": "Anvil Agent core — tools, context, models, permissions",
+  "license": "MIT",
+  "homepage": "https://github.com/pranee54/Anvil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranee54/Anvil.git",
+    "directory": "packages/agent-core"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --dir ../../tests"
+  },
+  "dependencies": {
+    "diff": "^7.0.0",
+    "fast-glob": "^3.3.3",
+    "ignore": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/diff": "^6.0.0",
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

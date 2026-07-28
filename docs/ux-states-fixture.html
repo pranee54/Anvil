@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Anvil Chat UX states</title>
+<style>
+:root {
+  --fg:#ccc; --muted:#8b8b8b; --border:#3c3c3c; --bg:#1e1e1e; --elev:#252526;
+  --input:#2a2a2a; --btn:#0e639c; --btnFg:#fff; --link:#3794ff; --codeBg:#2b2b2b;
+  --insertFg:#3fa26b; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:Menlo,Monaco,monospace;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family:var(--font); background:#111; color:var(--fg); display:flex; flex-wrap:wrap; gap:20px; padding:20px; }
+.wrap { position:relative; }
+.label { position:absolute; top:-18px; left:4px; font-size:11px; color:#888; letter-spacing:.04em; }
+.panel {
+  width: 380px; height: 520px; background:var(--bg); border:1px solid var(--border);
+  border-radius:8px; display:flex; flex-direction:column; overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.45);
+}
+.topbar { flex-shrink:0; padding:5px 8px; border-bottom:1px solid var(--border); font-size:12px; font-weight:600; }
+.feed { flex:1; min-height:0; overflow-y:auto; padding:10px 12px; }
+.composer-wrap { flex-shrink:0; border-top:1px solid var(--border); padding:6px 10px 8px; }
+.user-card { background:var(--elev); border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:13px; margin-bottom:8px; }
+.act { font-size:12px; color:var(--muted); margin:2px 0; }
+.thought { color:var(--muted); font-size:12px; margin:4px 0 8px; max-width:34em; line-height:1.45; }
+.answer { margin-top:8px; font-size:13px; line-height:1.55; }
+.answer h3 { font-size:13px; margin:10px 0 6px; }
+.collapse { font-size:12px; color:var(--muted); margin-bottom:6px; }
+.collapse .ok { color:var(--insertFg); }
+.composer { border:1px solid var(--border); border-radius:10px; background:var(--input); padding:8px 10px; }
+.ph { color:var(--muted); font-size:13px; min-height:22px; }
+.bar { display:flex; gap:6px; margin-top:6px; align-items:center; font-size:11.5px; color:var(--muted); }
+.send { width:26px; height:26px; border-radius:50%; background:var(--btn); margin-left:auto; }
+.send.stop { background:transparent; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+.sq { width:8px; height:8px; background:var(--fg); }
+.spin { display:inline-block; width:10px; height:10px; border:1.5px solid var(--muted); border-top-color:transparent; border-radius:50%; animation:s .7s linear infinite; vertical-align:middle; margin-right:4px; }
+@keyframes s { to { transform:rotate(360deg); } }
+.card { margin:6px 0; border:1px solid var(--border); border-radius:8px; background:var(--elev); padding:6px 8px; font-size:12px; }
+.path { color:var(--link); font-family:var(--mono); font-size:11.5px; }
+.sources { margin-top:10px; font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="label">EMPTY</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed" style="display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:11px;letter-spacing:.08em;color:#8b8b8b;">ANVIL</div>
+      <div style="font-size:16px;margin:6px 0;">What are we building?</div>
+      <div style="font-size:12px;color:#8b8b8b;">Ask about this workspace.</div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send"></div></div></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">A · Investigating (turn-local)</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed">
+      <div class="user-card">how to use this project</div>
+      <div class="act"><span class="spin"></span>Thinking</div>
+      <div class="thought">I'm checking the repository's installation documentation so I don't guess the backend setup.</div>
+      <div class="act">› Searched codebase ▾</div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send stop"><div class="sq"></div></div></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">B · Read activity</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed">
+      <div class="user-card">how to use this project</div>
+      <div class="act">Thought briefly ▾</div>
+      <div class="thought">I'm checking the repository's installation documentation so I don't guess the backend setup.</div>
+      <div class="act">› Read 5 files ▾</div>
+      <div class="act">Read <span class="path">CLIENT-INSTALL.txt</span></div>
+      <div class="act">Read <span class="path">README.md</span></div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send stop"><div class="sq"></div></div></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">E · Completed (collapsed)</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed">
+      <div class="user-card">how to use this project</div>
+      <div class="collapse"><span class="ok">✓</span> Investigated codebase · 5 files ▾</div>
+      <div class="answer">
+        <h3>Using this project</h3>
+        <p>From the repository documentation, here is what I could verify.</p>
+        <p>Load unpacked from <span class="path">extension/chrome</span>.</p>
+        <p>No documented backend startup command was found.</p>
+        <div class="sources">Sources · 4 files ▾</div>
+      </div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send"></div></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">C · Editing</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed">
+      <div class="user-card">Fix the login bug</div>
+      <div class="act">Thought for 4s ▾</div>
+      <div class="thought">Tracing authentication and session creation.</div>
+      <div class="act">› Read 5 files ▾</div>
+      <div class="card">TS · login.php &nbsp; <span style="color:#3fa26b">+12</span> <span style="color:#c75252">−4</span></div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send stop"><div class="sq"></div></div></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">D · Terminal</div>
+  <div class="panel">
+    <div class="topbar">Anvil</div>
+    <div class="feed">
+      <div class="user-card">Fix the login bug</div>
+      <div class="card"><span class="spin"></span> Running tests<div style="margin-top:6px;font-family:var(--mono);font-size:11px;color:#8b8b8b;">npm test</div></div>
+    </div>
+    <div class="composer-wrap"><div class="composer"><div class="ph">Ask Anvil, / for commands, @ for context</div><div class="bar">Agent ▾ · Auto ▾ · @ <div class="send stop"><div class="sq"></div></div></div></div>
+  </div>
+</div>
+
+</body>
+</html>

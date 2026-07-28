@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "anvil-extension: build",
+      "type": "shell",
+      "command": "npm run build -w @anvil/agent-core && npm run build --prefix packages/anvil-extension",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

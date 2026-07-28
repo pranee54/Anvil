@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+packages/*/node_modules/
+
+# Build outputs
+out/
+dist/
+coverage/
+*.vsix
+packages/*/dist/
+*.tsbuildinfo
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+*.local
+
+# IDE download / packaging caches (large binaries)
+ide/code-oss/
+ide/cache/
+
+# Packaged app + local runtime data (never commit)
+dist/Anvil.app/
+dist/bin/
+dist/anvil-user-data/
+dist/anvil-user-data-*/
+**/anvil-user-data/
+user-data/
+**/user-data/
+
+# Local model / Ollama data (if ever placed at repo root — do NOT ignore packages/*/src/models)
+/models/
+*.gguf
+/*.bin
+!**/esbuild.js
+
+# Test / temp
+.tmp/
+.tmp-*/
+.temp/
+*.tmp

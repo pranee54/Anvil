@@ -1,0 +1,286 @@
+{
+  "name": "anvil-agent",
+  "displayName": "Anvil Agent",
+  "description": "Local-first AI coding agent for Anvil IDE",
+  "version": "0.2.0",
+  "publisher": "anvil",
+  "license": "MIT",
+  "homepage": "https://github.com/pranee54/Anvil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranee54/Anvil.git",
+    "directory": "packages/anvil-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/pranee54/Anvil/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["AI", "Other"],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:anvil.agentView",
+    "onView:anvil.agentChatView",
+    "onCommand:anvil.openChat",
+    "onCommand:anvil.openChatPanel",
+    "onCommand:anvil.openChatInEditor",
+    "onCommand:anvil.newChat",
+    "onCommand:anvil.openAgent",
+    "onCommand:anvil.runAgent",
+    "onCommand:anvil.askSelection",
+    "onCommand:anvil.editSelection",
+    "onCommand:anvil.fixProblems",
+    "onCommand:anvil.explainFile",
+    "onCommand:anvil.selectModel",
+    "onCommand:anvil.abortAgent",
+    "onCommand:anvil.testOllama",
+    "onCommand:anvil.statusBarAction"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "anvil",
+          "title": "Anvil",
+          "icon": "media/anvil.svg"
+        }
+      ],
+      "secondarySidebar": [
+        {
+          "id": "anvil-agent",
+          "title": "Anvil",
+          "icon": "media/anvil.svg"
+        }
+      ]
+    },
+    "views": {
+      "anvil": [
+        {
+          "type": "webview",
+          "id": "anvil.agentView",
+          "name": "Anvil"
+        }
+      ],
+      "anvil-agent": [
+        {
+          "type": "webview",
+          "id": "anvil.agentChatView",
+          "name": "Agent",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "anvil.openChat",
+        "title": "Anvil: Open Chat",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.openChatPanel",
+        "title": "Anvil: Open Chat Panel",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.openChatInEditor",
+        "title": "Anvil: Open Chat in Editor",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.newChat",
+        "title": "Anvil: New Chat",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.openAgent",
+        "title": "Anvil: Open Agent",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.runAgent",
+        "title": "Anvil: Run Agent on Workspace",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.askSelection",
+        "title": "Anvil: Ask About Selection",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.editSelection",
+        "title": "Anvil: Edit Selection",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.fixProblems",
+        "title": "Anvil: Fix Problems",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.explainFile",
+        "title": "Anvil: Explain Current File",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.selectModel",
+        "title": "Anvil: Select Model",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.abortAgent",
+        "title": "Anvil: Abort Agent",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.testOllama",
+        "title": "Anvil: Test Ollama Connection",
+        "category": "Anvil"
+      },
+      {
+        "command": "anvil.statusBarAction",
+        "title": "Anvil: Status Menu",
+        "category": "Anvil"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "anvil.openChat",
+        "key": "ctrl+l",
+        "mac": "cmd+l"
+      },
+      {
+        "command": "anvil.newChat",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l"
+      },
+      {
+        "command": "anvil.openAgent",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "anvil.editSelection",
+        "key": "ctrl+shift+i",
+        "mac": "cmd+shift+i",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "anvil.fixProblems",
+        "key": "ctrl+shift+;",
+        "mac": "cmd+shift+;"
+      }
+    ],
+    "configuration": {
+      "title": "Anvil",
+      "properties": {
+        "anvil.provider": {
+          "type": "string",
+          "enum": ["ollama", "openai-compatible", "anthropic", "gemini"],
+          "default": "ollama",
+          "markdownDescription": "AI provider. **Ollama** stays fully local.",
+          "order": 1
+        },
+        "anvil.baseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:11434",
+          "markdownDescription": "Ollama / OpenAI-compatible base URL.",
+          "order": 2
+        },
+        "anvil.model": {
+          "type": "string",
+          "default": "qwen2.5-coder:3b",
+          "markdownDescription": "Model id (e.g. `qwen2.5-coder:7b`).",
+          "order": 3
+        },
+        "anvil.apiKey": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "API key for cloud providers only. Never required for Ollama.",
+          "order": 4
+        },
+        "anvil.maxIterations": {
+          "type": "number",
+          "default": 24,
+          "minimum": 1,
+          "maximum": 100,
+          "markdownDescription": "Maximum agent tool-loop iterations.",
+          "order": 10
+        },
+        "anvil.maxContextChars": {
+          "type": "number",
+          "default": 24000,
+          "markdownDescription": "Soft character budget for seeded context (local models).",
+          "order": 11
+        },
+        "anvil.maxInitialFiles": {
+          "type": "number",
+          "default": 6,
+          "markdownDescription": "Max files seeded into the first agent prompt.",
+          "order": 12
+        },
+        "anvil.maxTerminalChars": {
+          "type": "number",
+          "default": 6000,
+          "markdownDescription": "Max characters of terminal output returned to the agent.",
+          "order": 13
+        },
+        "anvil.permissionMode": {
+          "type": "string",
+          "enum": ["strict", "ask", "permissive"],
+          "default": "ask",
+          "enumDescriptions": [
+            "Deny deletes/installs/destructive shell",
+            "Ask before risky operations (recommended)",
+            "Allow deletes/installs/destructive shell when requested"
+          ],
+          "markdownDescription": "How Anvil treats risky tools (deletes, installs, destructive shell).",
+          "order": 14
+        },
+        "anvil.temperature": {
+          "type": "number",
+          "default": 0.2,
+          "minimum": 0,
+          "maximum": 2,
+          "order": 20
+        },
+        "anvil.defaultMode": {
+          "type": "string",
+          "enum": ["ask", "edit", "agent", "plan"],
+          "default": "agent",
+          "order": 21
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "anvil.askSelection",
+          "group": "anvil@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "anvil.editSelection",
+          "group": "anvil@2",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "package": "npm run build && npx @vscode/vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@anvil/agent-core": "file:../agent-core"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  }
+}

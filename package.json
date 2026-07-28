@@ -1,0 +1,65 @@
+{
+  "name": "anvil",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Anvil — local-first AI coding IDE built on Code-OSS with Anvil Agent",
+  "homepage": "https://github.com/pranee54/Anvil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranee54/Anvil.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pranee54/Anvil/issues"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "workspaces": [
+    "packages/agent-core",
+    "packages/anvil-extension"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build:agent": "npm run build -w @anvil/agent-core",
+    "build:extension": "npm run build --prefix packages/anvil-extension",
+    "build:ide-ext": "npm run build:agent && npm run build:extension",
+    "typecheck:agent": "npm run typecheck -w @anvil/agent-core",
+    "typecheck:extension": "npm run typecheck --prefix packages/anvil-extension",
+    "test": "vitest run",
+    "test:agent": "ELECTRON_RUN_AS_NODE=1 npx tsx scripts/agent-integration.ts",
+    "anvil:dev": "npm run build:ide-ext && echo 'Open Run and Debug → Anvil: Extension Development Host (or: npm run anvil:package:mac)'",
+    "anvil:build": "npm run build:ide-ext",
+    "anvil:package:mac": "bash ide/scripts/package-mac.sh",
+    "anvil:launch": "open dist/Anvil.app",
+    "prepare:code-oss": "bash ide/scripts/prepare-code-oss.sh",
+    "legacy:dev": "electron-vite --config apps/legacy-electron/electron.vite.config.ts dev",
+    "legacy:build": "electron-vite --config apps/legacy-electron/electron.vite.config.ts build",
+    "legacy:typecheck": "tsc --noEmit -p apps/legacy-electron/tsconfig.node.json && tsc --noEmit -p apps/legacy-electron/tsconfig.web.json"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "diff": "^7.0.0",
+    "electron-store": "^8.2.0",
+    "fast-glob": "^3.3.3",
+    "ignore": "^7.0.3",
+    "lucide-react": "^0.475.0",
+    "monaco-editor": "^0.52.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.3",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/diff": "^6.0.0",
+    "@types/node": "^22.13.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^34.2.0",
+    "electron-vite": "^3.0.0",
+    "tsx": "^4.23.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  }
+}

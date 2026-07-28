@@ -1,0 +1,7 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./apps/legacy-electron/tsconfig.node.json" },
+    { "path": "./apps/legacy-electron/tsconfig.web.json" }
+  ]
+}
