@@ -18,6 +18,7 @@ Anvil is a local-first AI coding IDE: Code-OSS-class desktop + Anvil Agent.
 - Prefer precise edits over large rewrites
 - Respect `.aiignore` and never leak secrets to cloud providers
 - Keep Anvil intelligence in agent-core / anvil-extension; avoid unnecessary upstream IDE edits
+- Never add Co-authored-by trailers or AI/assistant attribution to Git commits. Commit authorship and committer identity must remain the configured repository Git identity only.
 
 ## Commands
 
